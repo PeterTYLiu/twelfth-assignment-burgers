@@ -16,7 +16,11 @@ class DB {
     if (this.conn) return this.conn;
 
     try {
-      this.conn = mysql.createConnection(this.config).promise();
+      if (process.env.JAWSDB_URL) {
+        this.conn = mysql.createConnection(process.env.JAWSDB_URL).promise();
+      } else {
+        this.conn = mysql.createConnection(this.config).promise();
+      }
       return this.conn;
     } catch (err) {
       console.log(err);
