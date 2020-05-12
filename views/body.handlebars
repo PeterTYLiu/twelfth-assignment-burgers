@@ -1,0 +1,53 @@
+<h1>Eat-Da-Burger</h1>
+
+<h2>Add a Burger</h2>
+<form id="create-form">
+    <div class="form-group">
+        <label for="burgername">Burger Name:</label>
+        <input type="text" id="burgername" name="name">
+    </div>
+    <button type="submit">Add Burger</button>
+</form>
+<div style="display: flex">
+    <div class="half">
+        <h3>Uneaten Burgers</h3>
+        <ul>
+            {{#each burgers}}
+            {{#unless eaten}}
+            {{> burger-uneaten }}
+            {{/unless}}
+            {{/each}}
+        </ul>
+    </div>
+    <div class="half">
+        <h3>Eaten Burgers</h3>
+        <ul>
+            {{#each burgers}}
+            {{#if eaten}}
+            {{> burger-eaten }}
+            {{/if}}
+            {{/each}}
+        </ul>
+    </div>
+</div>
+
+
+{{!-- <h2>Cats that are not sleepy!</h2>
+
+<ul>
+    {{#each cats}}
+    {{#unless sleepy}}
+    {{> cats/cat-block sleep=true}}
+    {{/unless}}
+    {{/each}}
+</ul>
+
+<h2>Cats that are sleepy!</h2>
+
+<ul>
+    {{#each cats}}
+    {{#if sleepy}}
+    {{> cats/cat-block sleep=false}}
+    {{/if}}
+    {{/each}}
+</ul> --}}

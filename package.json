@@ -1,0 +1,25 @@
+{
+  "name": "twelfth-assignment-burgers",
+  "version": "1.0.0",
+  "description": "Assignment 12: Burger Eating App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeterTYLiu/twelfth-assignment-burgers.git"
+  },
+  "author": "Peter Liu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PeterTYLiu/twelfth-assignment-burgers/issues"
+  },
+  "homepage": "https://github.com/PeterTYLiu/twelfth-assignment-burgers#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.1.0"
+  }
+}
