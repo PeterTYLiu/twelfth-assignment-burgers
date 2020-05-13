@@ -22,22 +22,16 @@ router.get("/api/burgers", async function (req, res) {
 
 router.post("/api/burgers", async function (req, res) {
   try {
-    const burger = new Burger(req.body);
-    let foo = await burger.save();
-    res.status(201).json({ data: foo });
+    let newBurger = await Burger.create(req.body);
+    res.status("201").json({ data: newBurger });
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
 router.patch("/api/burgers/:id", async function (req, res) {
-  const burger = await Burger.findById(req.params.id);
-  if (!burger) return res.status(404).end();
-
-  burger.eaten = true;
-
   try {
-    await burger.save();
+    const burger = await Burger.eat(req.params.id);
     res.status(200).json(burger);
   } catch (err) {
     res.status(500).json(err);

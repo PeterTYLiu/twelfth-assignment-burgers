@@ -1,6 +1,7 @@
 // Get the connection to the database
 const DB = require("../db");
 const connection = new DB({ database: "burgers_db" }).connection;
+const orm = require("../config/orm");
 
 class Burger {
   constructor({ name, eaten = false }) {
@@ -9,60 +10,24 @@ class Burger {
   }
 
   static async findAll() {
-    const [rows] = await connection.query(`SELECT * FROM burgers;`);
-    return rows;
+    let allBurgers = await orm.selectAll("burgers");
+    return allBurgers;
   }
 
-  // static async findAllUneaten() {
-  //   const [rows] = await connection.query(
-  //     `SELECT * FROM burgers WHERE "eaten" = FALSE;`
-  //   );
-  //   return rows;
-  // }
-
-  // static async findAllEaten() {
-  //   const [rows] = await connection.query(
-  //     `SELECT * FROM burgers WHERE "eaten" = TRUE;`
-  //   );
-  //   return rows;
-  // }
-
-  static async findById(id) {
-    const [rows] = await connection.query(
-      `SELECT * FROM burgers WHERE id = ?;`,
-      [parseInt(id)]
+  static async create(data) {
+    let newBurger = await orm.insertOne(
+      "burgers",
+      "name",
+      "eaten",
+      data.name,
+      false
     );
-
-    let burger = null;
-    if (rows.length) {
-      burger = new Burger(rows[0]);
-      burger.id = id;
-    }
-    return burger;
+    return newBurger;
   }
 
-  async save() {
-    if (this.id) {
-      return this.update();
-    } else {
-      return this.create();
-    }
-  }
-
-  async create() {
-    const sql = `INSERT INTO burgers (name, eaten) VALUES (?, ?)`;
-    const [result] = await connection.query(sql, [this.name, this.eaten]);
-    this.id = result.insertId;
-    return this;
-  }
-
-  async update() {
-    const sql = `UPDATE burgers SET ? WHERE id = ?`;
-    await connection.query(sql, [
-      { name: this.name, eaten: this.eaten },
-      this.id,
-    ]);
-    return this;
+  static async eat(id) {
+    let updated = await orm.updateOne("burgers", "eaten", true, id);
+    return updated;
   }
 }
 

@@ -3,7 +3,7 @@ const mysql = require("mysql2");
 const defaultConfig = {
   host: "localhost",
   user: "root",
-  password: "example",
+  password: "320936750",
 };
 
 class DB {
